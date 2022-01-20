@@ -17,8 +17,19 @@ header("location: customerlogin.php"); //Redirecting to myrestaurant Page
   <link rel="stylesheet" type = "text/css" href ="css/foodlist.css">
   <link rel="stylesheet" type = "text/css" href ="css/bootstrap.min.css">
   <script type="text/javascript" src="js/jquery.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/bistro-icons.css">
+<link rel="stylesheet" type="text/css" href="css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="css/settings.css">
+<link rel="stylesheet" type="text/css" href="css/navigation.css">
+<link rel="stylesheet" type="text/css" href="css/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="css/owl.transitions.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css">
+<link rel="stylesheet" type="text/css" href="css/zerogrid.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/loader.css">
+<link rel="shortcut icon" href="images/favicon.png">
   <body>
 
   <!--Back to top button..................................................................................-->
@@ -46,52 +57,58 @@ header("location: customerlogin.php"); //Redirecting to myrestaurant Page
       }
     </script>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top navigation-clean-search" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.php">Food Exploria</a>
-        </div>
-
-        <div class="collapse navbar-collapse " id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="aboutus.php">About</a></li>
-            <li><a href="contactus.php">Contact Us</a></li>
-
-          </ul>
-
-<?php
+<header id="main-navigation">
+  <div id="navigation" data-spy="affix" data-offset-top="20">
+    <div class="container">
+      <div class="row">
+      <div class="col-md-12">
+        <nav class="navbar navbar-default">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#fixed-collapse-navbar" aria-expanded="false"> 
+            <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> 
+            </button>
+           </div>
+        
+            <div id="fixed-collapse-navbar" class="navbar-collapse collapse navbar-right">
+              <ul class="nav navbar-nav">
+                <li>
+                   <a href="index.php">Home</a>
+                   
+                </li>
+                <!-- <li><a href="food.html">Our Food</a></li> -->
+                
+                
+                    <li><a href="aboutus.php">About Us</a></li>
+                    <li><a href="contactus.php">FAQ</a></li>
+                  
+                <!-- <li><a href="./account/register.php">Order Now</a></li> -->
+                
+              </ul>
+              <?php
 if(isset($_SESSION['login_user1'])){
-
-?>
-
-
-          <ul class="nav navbar-nav navbar-right">
+    ?>
+     <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_user1']; ?> </a></li>
             <li><a href="myrestaurant.php">MANAGER CONTROL PANEL</a></li>
             <li><a href="logout_m.php"><span class="glyphicon glyphicon-log-out"></span> Log Out </a></li>
           </ul>
-<?php
-}
+          <?php
+          }
 else if (isset($_SESSION['login_user2'])) {
   ?>
            <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_user2']; ?> </a></li>
-            <li class="active" ><a href="foodlist.php"><span class="glyphicon glyphicon-cutlery"></span> Food Zone </a></li>
-            <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart  (<?php
+            <li><a href="foodlist.php"><span class="glyphicon glyphicon-cutlery"></span> Food Zone </a></li>
+            <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart
+              (<?php
               if(isset($_SESSION["cart"])){
               $count = count($_SESSION["cart"]); 
               echo "$count"; 
             }
               else
                 echo "0";
-              ?>) </a></li>
+              ?>)
+             </a></li>
+             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_user2']; ?> </a></li>
             <li><a href="logout_u.php"><span class="glyphicon glyphicon-log-out"></span> Log Out </a></li>
           </ul>
   <?php        
@@ -105,7 +122,7 @@ else {
                 <ul class="dropdown-menu">
               <li> <a href="customersignup.php"> User Sign-up</a></li>
               <li> <a href="managersignup.php"> Manager Sign-up</a></li>
-              <li> <a href="#"> Admin Sign-up</a></li>
+              
             </ul>
             </li>
 
@@ -113,7 +130,7 @@ else {
               <ul class="dropdown-menu">
               <li> <a href="customerlogin.php"> User Login</a></li>
               <li> <a href="managerlogin.php"> Manager Login</a></li>
-              <li> <a href="#"> Admin Login</a></li>
+             
             </ul>
             </li>
           </ul>
@@ -122,11 +139,14 @@ else {
 }
 ?>
 
+            </div>
+         </nav>
+         </div>
+       </div>
+     </div>
+  </div>
+</header>
 
-        </div>
-
-      </div>
-    </nav>
 
     <!-- Carousal ================================================================ -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -249,6 +269,24 @@ else
 
 </div>
    
+<script src="js/jquery-2.2.3.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/jquery.themepunch.tools.min.js"></script>
+<script src="js/jquery.themepunch.revolution.min.js"></script>
+<script src="js/revolution.extension.layeranimation.min.js"></script>
+<script src="js/revolution.extension.navigation.min.js"></script>
+<script src="js/revolution.extension.parallax.min.js"></script>
+<script src="js/revolution.extension.slideanims.min.js"></script>
+<script src="js/revolution.extension.video.min.js"></script>
+<script src="js/slider.js" type="text/javascript"></script>
+<script src="js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="js/jquery.parallax-1.1.3.js"></script>
+<script src="js/jquery.mixitup.min.js"></script>
+<script src="js/jquery-countTo.js"></script>
+<script src="js/jquery.appear.js"></script>  
+<script src="js/jquery.fancybox.js"></script>
+<script src="js/functions.js" type="text/javascript"></script>
+ 
 </body>
 <!--
   <footer class="container-fluid bg-4 text-center">

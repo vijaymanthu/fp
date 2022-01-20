@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
--- http://www.phpmyadmin.net
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2017 at 05:23 PM
--- Server version: 5.7.11
--- PHP Version: 5.6.19
+-- Generation Time: Jan 14, 2022 at 07:23 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `foodexploria`
+-- Database: `foood`
 --
 
 -- --------------------------------------------------------
@@ -32,17 +33,20 @@ CREATE TABLE `customer` (
   `email` varchar(30) NOT NULL,
   `contact` varchar(30) NOT NULL,
   `address` varchar(50) NOT NULL,
-  `password` varchar(30) NOT NULL
+  `password` varchar(30) NOT NULL,
+  `code` varchar(100) NOT NULL,
+  `verified` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`username`, `fullname`, `email`, `contact`, `address`, `password`) VALUES
-('nidha', 'nidha', 'nidha@gmail.com', '998696572', 'Maharashtra', 'suhail'),
-('pratheek083', 'Pratheek Shiri', 'pratheek@gmail.com', '8779546521', 'Hyderabad', 'pratheek'),
-('rakshithk00', 'Rakshith Kotian', 'rakshith@gmail.com', '9547123658', 'Gujarath', 'rakshith');
+INSERT INTO `customer` (`username`, `fullname`, `email`, `contact`, `address`, `password`, `code`, `verified`) VALUES
+('nidha', 'nidha', 'nidha@gmail.com', '998696572', 'Maharashtra', 'suhail', '', 0),
+('pratheek083', 'Pratheek Shiri', 'pratheek@gmail.com', '8779546521', 'Hyderabad', 'pratheek', '', 0),
+('rakshithk00', 'Rakshith Kotian', 'rakshith@gmail.com', '9547123658', 'Gujarath', 'rakshith', '', 0),
+('user1', 'mahntesh', 'mahi.manthu10@gmail.com', '8497835788', 'afasdukhgsdkg', 'Manthu@10', '8e43Vr5shqSv', 1);
 
 -- --------------------------------------------------------
 
@@ -83,17 +87,20 @@ CREATE TABLE `manager` (
   `email` varchar(30) NOT NULL,
   `contact` varchar(30) NOT NULL,
   `address` varchar(50) NOT NULL,
-  `password` varchar(30) NOT NULL
+  `password` varchar(30) NOT NULL,
+  `code` varchar(100) NOT NULL,
+  `verified` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `manager`
 --
 
-INSERT INTO `manager` (`username`, `fullname`, `email`, `contact`, `address`, `password`) VALUES
-('aditi068', 'Aditi Naik', 'aditi@gmail.com', '8654751259', 'Goa', 'aditi'),
-('aminnikhil073', 'Nikhil Amin', 'aminnikhil073@gmail.com', '9632587412', 'Karnataka', 'nikhil'),
-('roshanraj07', 'Roshan Raj', 'roshan@gmail.com', '9541258761', 'Bihar', 'roshan');
+INSERT INTO `manager` (`username`, `fullname`, `email`, `contact`, `address`, `password`, `code`, `verified`) VALUES
+('aditi068', 'Aditi Naik', 'aditi@gmail.com', '8654751259', 'Goa', 'aditi', '', 0),
+('aminnikhil073', 'Nikhil Amin', 'aminnikhil073@gmail.com', '9632587412', 'Karnataka', 'nikhil', '', 0),
+('roshanraj07', 'Roshan Raj', 'roshan@gmail.com', '9541258761', 'Bihar', 'roshan', '', 0),
+('user1', 'mahantesh', 'mahi.manthu10@gmail.com', '8497835788', 'adress', 'pass1', '9a1u5ySKFYV4', 1);
 
 -- --------------------------------------------------------
 
@@ -185,16 +192,19 @@ ALTER TABLE `restaurants`
 --
 ALTER TABLE `food`
   MODIFY `F_ID` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `order_ID` int(30) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
   MODIFY `R_ID` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- Constraints for dumped tables
 --
@@ -218,6 +228,7 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `restaurants`
   ADD CONSTRAINT `restaurants_ibfk_1` FOREIGN KEY (`M_ID`) REFERENCES `manager` (`username`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

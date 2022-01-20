@@ -1,3 +1,9 @@
+<?php
+
+require './function.php';
+
+?>
+
 <html>
 
   <head>
@@ -50,9 +56,9 @@
 
         <div class="collapse navbar-collapse " id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active" ><a href="index.php">Home</a></li>
+            <!-- <li class="active" ><a href="index.php">Home</a></li>
             <li><a href="aboutus.php">About</a></li>
-            <li><a href="contactus.php">Contact Us</a></li>
+            <li><a href="contactus.php">Contact Us</a></li> -->
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -65,36 +71,55 @@
     </nav>
 
 <?php
-
 require 'connection.php';
 $conn = Connect();
-
 $fullname = $conn->real_escape_string($_POST['fullname']);
 $username = $conn->real_escape_string($_POST['username']);
 $email = $conn->real_escape_string($_POST['email']);
 $contact = $conn->real_escape_string($_POST['contact']);
 $address = $conn->real_escape_string($_POST['address']);
 $password = $conn->real_escape_string($_POST['password']);
-
-$query = "INSERT into MANAGER(fullname,username,email,contact,address,password) VALUES('" . $fullname . "','" . $username . "','" . $email . "','" . $contact . "','" . $address ."','" . $password ."')";
+$set = '123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+$code = substr(str_shuffle($set), 0, 12);
+$query = "INSERT into MANAGER(fullname,username,email,contact,address,password,code) VALUES('" . $fullname . "','" . $username . "','" . $email . "','" . $contact . "','" . $address ."','" . $password ."','" . $code ."')";
 $success = $conn->query($query);
 
 if (!$success){
 	die("Couldnt enter data: ".$conn->error);
 }
+if ($success) {
+	$uid = mysqli_insert_id($conn);
+	$subject = "Activate Account";
+	$message = "
+				<html>
+				<head>
+				<title>Verification Code</title>
+				</head>
+				<body>
+				<h2>Thank you for Registering.</h2>
+				<p>Your Account:</p>
+				<p>USERNAME: " . $username . "</p>
+				<p>Please click the link below to activate your account.</p>
+				<h4><a href='http://localhost/FoodExploria/verifyEmail.php?uid=$username&u=manager&code=$code'>Activate My Account</h4>
+				</body>
+				</html>
+				";
+	phpmailsend($email, $subject, $message);
+  
+	echo "<script>alert('Your account was created successfully ,Check your Email to Activate');document.location='index.php';</script>";
+	// $_SESSION['user'] = $u;
+	die();
+} else {
+  echo "<script>alert('Something went wrong while creating your account. Please try again.');document.location='managersignup.php';</script>";
+	
+	die();
+}
 
 $conn->close();
-
 ?>
 
 
-<div class="container">
-	<div class="jumbotron" style="text-align: center;">
-		<h2> <?php echo "Welcome $fullname!" ?> </h2>
-		<h1>Your account has been created.</h1>
-		<p>Login Now from <a href="managerlogin.php">HERE</a></p>
-	</div>
-</div>
+
 
     </body>
 
